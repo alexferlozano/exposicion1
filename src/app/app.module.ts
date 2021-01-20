@@ -13,6 +13,7 @@ import { NameEditorComponent } from './name-editor/name-editor.component';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsComponent } from './forms/forms.component';
+import { EjemploComponent } from './ejemplo/ejemplo.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsComponent } from './forms/forms.component';
     OpenCloseComponent,
     NameEditorComponent,
     ProfileEditorComponent,
-    FormsComponent
+    FormsComponent,
+    EjemploComponent
   ],
   imports: [
     BrowserModule,
