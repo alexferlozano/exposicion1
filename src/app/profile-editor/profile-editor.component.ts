@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, Validators, FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-profile-editor',
@@ -9,7 +7,45 @@ import { FormArray } from '@angular/forms';
   styleUrls: ['./profile-editor.component.css']
 })
 export class ProfileEditorComponent {
-  profileForm = this.fb.group({
+  profileForm = new FormGroup ({
+    nombre: new FormControl('', Validators.required),
+    apellido: new FormControl(''),
+    direccion : new FormGroup({
+      calle: new FormControl(''),
+      ciudad: new FormControl(''),
+      estado: new FormControl(''),
+      CP: new FormControl('')
+    }),
+    aliases: new FormArray([
+      new FormControl('')
+    ])
+  })
+  get aliases() {
+    return this.profileForm.get('aliases') as FormArray;
+  }
+  constructor() { }
+  /* Acepta un objeto con nombres de control como claves y hace todo lo posible 
+  para hacer coincidir los valores con los controles correctos en el grupo. */
+  updateProfile() {
+    this.profileForm.patchValue({
+      nombre: 'Selena',
+      direccion: {
+        calle: '123 Drew Street'
+      }
+    });
+  }
+
+  /* Inserta un nuevo AbstractControl al final de un arreglo. */
+  addAlias() {
+    this.aliases.push(new FormControl(''));
+  }
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.profileForm.value);
+  } 
+
+  /*profileForm = this.fb.group({
     nombre: ['', Validators.required],
     apellido: [''],
     direccion: this.fb.group({
@@ -46,5 +82,5 @@ export class ProfileEditorComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
-  }
+  } */
 }
